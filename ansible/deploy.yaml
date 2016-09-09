@@ -1,8 +1,8 @@
 ---
 - hosts: lab
   tasks:
-    - name: Change existing ckan image tag
-      shell: docker tag 192.168.1.200:5000/ckan:latest 192.168.1.200:5000/ckan:old
+    - name: Remove old ckan image
+      shell: docker pull 192.168.1.200:5000/ckan:latest
 
     - name: Pull latest ckan image
       shell: docker pull 192.168.1.200:5000/ckan:latest
@@ -15,6 +15,3 @@
 
     - name: Start latest ckan container
       shell: docker run -d --name ckan -p 80:80 --link db:db --link solr:solr 192.168.1.200:5000/ckan:latest
-
-    - name: Remove old ckan image
-      shell: docker rmi 192.168.1.200:5000/ckan:old
